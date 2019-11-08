@@ -80,6 +80,8 @@ public class Prospector : MonoBehaviour {
             cp.SetSortingLayerName(tSD.layerName);
             tableau.Add(cp);
         }
+        MoveToTarget(Draw());
+        UpdateDrawPile();
 
     }
 
@@ -128,6 +130,22 @@ public class Prospector : MonoBehaviour {
             cd.state = eCardState.drawpile;
             cd.SetSortingLayerName(layout.drawPile.layerName);
             cd.SetSortOrder(-10 * i);
+        }
+    }
+
+    public void CardClicked(CardProspector cd) {
+        switch (cd.state) {
+            case eCardState.target:
+                break;
+
+            case eCardState.drawpile:
+                MoveToDiscard(target);
+                MoveToTarget(Draw());
+                UpdateDrawPile();
+                break;
+
+            case eCardState.tableau:
+                break;
         }
     }
 
